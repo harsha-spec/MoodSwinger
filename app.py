@@ -9,10 +9,8 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_secret_key")
 # ================= SPOTIFY CONFIG =================
 CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
-REDIRECT_URI = os.getenv(
-    "SPOTIFY_REDIRECT_URI",
-    "http://127.0.0.1:5000/callback"
-)
+REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
+
 
 
 AUTH_URL = "https://accounts.spotify.com/authorize"
@@ -70,12 +68,17 @@ def callback():
         }
     )
 
+    print("TOKEN STATUS:", token_resp.status_code)
+    print("TOKEN TEXT:", token_resp.text)
+
     token_data = safe_json(token_resp)
+
     if not token_data or "access_token" not in token_data:
         return "Spotify authentication failed", 400
 
     session["access_token"] = token_data["access_token"]
     return redirect(url_for("dashboard"))
+
 
 @app.route("/dashboard")
 def dashboard():
