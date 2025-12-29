@@ -68,17 +68,12 @@ def callback():
         }
     )
 
-    print("TOKEN STATUS:", token_resp.status_code)
-    print("TOKEN TEXT:", token_resp.text)
-
     token_data = safe_json(token_resp)
-
     if not token_data or "access_token" not in token_data:
         return "Spotify authentication failed", 400
 
     session["access_token"] = token_data["access_token"]
     return redirect(url_for("dashboard"))
-
 
 @app.route("/dashboard")
 def dashboard():
