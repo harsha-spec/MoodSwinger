@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login – Music System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- ================= LOGIN BACKGROUND ================= -->
+    <div class="universe-wrapper">
+
+        <div class="login-universe">
+
+            <!-- Stars only (no planets) -->
+            <div class="star-layer"></div>
+
+            <!-- Login Card -->
+            <div class="login-card">
+                <h1>Enter into your Music System</h1>
+
+                <a href="/login" class="login-btn">
+                    Login with Spotify
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= STAR GENERATION (LIGHT) ================= -->
+    <script>
+        const starLayer = document.querySelector(".star-layer");
+
+        if (starLayer) {
+            const STAR_COUNT = 120;
+
+            for (let i = 0; i < STAR_COUNT; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+
+                if (Math.random() > 0.7) star.classList.add("bright");
+                else if (Math.random() < 0.3) star.classList.add("dim");
+
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.left = `${Math.random() * 100}%`;
+
+                const duration = 20 + Math.random() * 30;
+                star.style.animation = `starFloat ${duration}s linear infinite`;
+
+                starLayer.appendChild(star);
+            }
+        }
+    </script>
+
+</body>
+</html>

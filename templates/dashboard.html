@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Music Space</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- ================= MAIN HEADING ================= -->
+    <h1 class="belt-title">
+    {{ user_profile.display_name if user_profile and user_profile.display_name else "Your" }}'s Music System
+</h1>
+
+
+    <!-- ================= RANGE SELECTOR ================= -->
+    <form method="get" action="/dashboard" style="text-align:left; margin:16px;">
+        <label for="range">Time Range:</label>
+        <select name="range" id="range">
+            <option value="short_term"
+                {% if selected_range == "short_term" %}selected{% endif %}>
+                Last 4 Weeks
+            </option>
+            <option value="medium_term"
+                {% if selected_range == "medium_term" %}selected{% endif %}>
+                Last 6 Months
+            </option>
+            <option value="long_term"
+                {% if selected_range == "long_term" %}selected{% endif %}>
+                All Time
+            </option>
+        </select>
+        <button type="submit">Apply</button>
+    </form>
+
+    <!-- ================= VIEW TOGGLE ================= -->
+    <div class="view-toggle">
+        <button id="universeBtn" class="active">Universe🌌</button>
+        <button id="listBtn">Top Lists🗒️</button>
+    </div>
+
+    <!-- ================= UNIVERSE WRAPPER ================= -->
+    <div class="universe-wrapper">
+
+        <!-- ================= UNIVERSE VIEW ================= -->
+        <div id="universeView" class="view-section active-view">
+
+            <div class="universe" id="universe">
+
+                <!-- Background layers -->
+                <div class="star-layer"></div>
+                <div class="asteroid-layer"></div>
+
+                <!-- SUN (USER PROFILE) -->
+                <div class="sun">
+                    {% if user_profile and user_profile.images %}
+                        <img src="{{ user_profile.images[0].url }}" alt="You">
+                    {% else %}
+                        <span>You</span>
+                    {% endif %}
+                </div>
+
+                <!-- ORBITS -->
+                <div class="orbit orbit-1"></div>
+                <div class="orbit orbit-2"></div>
+                <div class="orbit orbit-3"></div>
+                <div class="orbit orbit-4"></div>
+                <div class="orbit orbit-5"></div>
+
+                <!-- Planets injected via universe.js -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= LIST VIEW ================= -->
+    <div id="listView" class="view-section">
+
+        <div class="stats-container">
+
+            <!-- TOP ARTISTS -->
+            <div class="stats-column">
+                <div class="section-banner">
+                    <h2>Top Artists</h2>
+                </div>
+
+                <ul>
+                    {% for artist in artists %}
+                    <li>
+                        {% if artist.images %}
+                            <img src="{{ artist.images[0].url }}">
+                        {% endif %}
+                        <span>{{ artist.name }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- TOP TRACKS -->
+            <div class="stats-column">
+                <div class="section-banner">
+                    <h2>Top Tracks</h2>
+                </div>
+
+                <ul>
+                    {% for track in tracks %}
+                    <li>
+                        {% if track.album.images %}
+                            <img src="{{ track.album.images[0].url }}">
+                        {% endif %}
+                        <span>{{ track.name }} – {{ track.artists[0].name }}</span>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ================= DATA FOR JS ================= -->
+    <script>
+        const tracksData = {{ tracks | tojson }};
+    </script>
+
+    <!-- ================= UNIVERSE LOGIC ================= -->
+    <script src="{{ url_for('static', filename='universe.js') }}"></script>
+
+    <!-- ================= VIEW TOGGLE LOGIC ================= -->
+    <script>
+        const universeBtn = document.getElementById("universeBtn");
+        const listBtn = document.getElementById("listBtn");
+
+        const universeView = document.getElementById("universeView");
+        const listView = document.getElementById("listView");
+
+        universeBtn.onclick = () => {
+            universeView.classList.add("active-view");
+            listView.classList.remove("active-view");
+
+            universeBtn.classList.add("active");
+            listBtn.classList.remove("active");
+        };
+
+        listBtn.onclick = () => {
+            listView.classList.add("active-view");
+            universeView.classList.remove("active-view");
+
+            listBtn.classList.add("active");
+            universeBtn.classList.remove("active");
+        };
+    </script>
+
+</body>
+</html>

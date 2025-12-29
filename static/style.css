@@ -1,0 +1,504 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600&display=swap');
+html, body {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h1, h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    letter-spacing: 0.4px;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight: 500;
+    opacity: 0.9;
+}
+
+
+/* ================= BODY & SPACE BACKGROUND ================= */
+body {
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #e6e8ef;
+
+    background:
+        radial-gradient(circle at 50% 40%, rgba(80, 120, 255, 0.15), transparent 60%),
+        radial-gradient(circle at 20% 80%, rgba(120, 80, 255, 0.12), transparent 55%),
+        radial-gradient(circle at 80% 20%, rgba(255, 120, 80, 0.10), transparent 50%),
+        radial-gradient(circle at center, #0b1026 0%, #02030a 70%);
+}
+
+
+/* ================= STAR FIELD ================= */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background-image:
+        radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8) 50%, transparent 51%),
+        radial-gradient(1px 1px at 30% 80%, rgba(255,255,255,0.6) 50%, transparent 51%),
+        radial-gradient(1px 1px at 50% 40%, rgba(255,255,255,0.7) 50%, transparent 51%),
+        radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.5) 50%, transparent 51%),
+        radial-gradient(1px 1px at 90% 30%, rgba(255,255,255,0.6) 50%, transparent 51%);
+
+    background-size: 200px 200px;
+    opacity: 0.6;
+    pointer-events: none;
+
+    animation: starDrift 20s linear infinite;
+}
+
+/* Star drift animation */
+@keyframes starDrift {
+    from { background-position: 0 0; }
+    to   { background-position: 200px 200px; }
+}
+
+/* ================= UNIVERSE ================= */
+.universe {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    margin-top: 40px;
+    overflow: visible;
+
+    transition: filter 0.6s ease;
+}
+
+/* Hover refresh */
+.universe:hover {
+    filter: saturate(1.15) brightness(1.05);
+}
+
+/* ================= NEBULA GLOW ================= */
+.universe::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 900px;
+    height: 900px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+
+    background:
+        radial-gradient(circle,
+            rgba(255, 200, 120, 0.12) 0%,
+            rgba(120, 120, 255, 0.08) 30%,
+            rgba(80, 80, 160, 0.05) 50%,
+            transparent 70%
+        );
+
+    transition: background 0.8s ease;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Cooler palette on hover */
+.universe:hover::before {
+    background:
+        radial-gradient(circle,
+            rgba(120, 200, 255, 0.14) 0%,
+            rgba(120, 255, 200, 0.10) 30%,
+            rgba(80, 160, 160, 0.06) 50%,
+            transparent 70%
+        );
+}
+
+/* ================= SUN (USER PROFILE) ================= */
+.sun {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 130px;
+    height: 130px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 0 25px rgba(255, 200, 120, 0.8),
+        0 0 50px rgba(255, 160, 60, 0.6),
+        0 0 90px rgba(255, 120, 0, 0.45);
+
+    animation: sunPulse 4s ease-in-out infinite;
+}
+
+/* Sun hover reaction */
+.universe:hover .sun {
+    box-shadow:
+        0 0 30px rgba(180, 220, 255, 0.9),
+        0 0 70px rgba(120, 200, 255, 0.7),
+        0 0 120px rgba(80, 160, 255, 0.5);
+}
+
+.sun img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 220, 150, 0.9);
+}
+
+.sun span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Sun pulse */
+@keyframes sunPulse {
+    0% {
+        box-shadow:
+            0 0 25px rgba(255, 200, 120, 0.8),
+            0 0 50px rgba(255, 160, 60, 0.6),
+            0 0 90px rgba(255, 120, 0, 0.45);
+    }
+    50% {
+        box-shadow:
+            0 0 35px rgba(255, 220, 150, 0.9),
+            0 0 70px rgba(255, 180, 80, 0.7),
+            0 0 120px rgba(255, 140, 20, 0.55);
+    }
+    100% {
+        box-shadow:
+            0 0 25px rgba(255, 200, 120, 0.8),
+            0 0 50px rgba(255, 160, 60, 0.6),
+            0 0 90px rgba(255, 120, 0, 0.45);
+    }
+}
+
+/* ================= ORBITS ================= */
+.orbit {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.orbit-1 { width: 240px; height: 240px; }
+.orbit-2 { width: 330px; height: 330px; }
+.orbit-3 { width: 420px; height: 420px; }
+.orbit-4 { width: 510px; height: 510px; }
+.orbit-5 { width: 600px; height: 600px; }
+
+/* ================= ORBIT NODE ================= */
+.orbit-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    pointer-events: none;
+}
+
+/* ================= PLANETS ================= */
+.planet {
+    border-radius: 50%;
+    overflow: hidden;
+
+    box-shadow:
+        0 0 4px rgba(255,255,255,0.3),
+        0 0 8px rgba(255,255,255,0.2);
+
+    transition: transform 0.4s ease;
+}
+
+/* Planet micro lift on hover */
+.universe:hover .planet {
+    transform: scale(1.06);
+}
+
+/* ================= PLANET LABELS ================= */
+.planet-label {
+    margin-top: 8px;
+    max-width: 120px;
+
+    background: rgba(15, 18, 40, 0.55);
+    backdrop-filter: blur(6px);
+    padding: 6px 8px;
+    border-radius: 8px;
+
+    font-size: 12px;
+    line-height: 1.3;
+    text-align: center;
+    color: #f1f3ff;
+}
+
+
+.song-name {
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.artist-name {
+    font-size: 7px;
+    opacity: 0.5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ================= STATS SECTION ================= */
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    max-width: 1100px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+}
+
+.stats-column {
+    width: 50%;
+}
+
+.stats-column h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.stats-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.stats-column li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.stats-column img {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    margin-right: 12px;
+}
+
+/* ================= FORM ================= */
+form {
+    margin-bottom: 10px;
+}
+
+select, button {
+    padding: 8px 12px;
+    margin-left: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.12);
+    outline: none;
+
+    background: rgba(20, 24, 60, 0.6);
+    color: #ffffff;
+    backdrop-filter: blur(6px);
+
+    font-family: 'Inter', sans-serif;
+}
+
+button {
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+    background: rgba(40, 60, 180, 0.7);
+    transform: translateY(-1px);
+}
+
+/* ================= STAR LAYER ================= */
+.star-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.6;
+}
+
+/* Depth variation */
+.star.dim {
+    opacity: 0.3;
+    transform: scale(0.8);
+}
+
+.star.bright {
+    opacity: 0.9;
+    transform: scale(1.2);
+}
+
+/* Slow star drift */
+@keyframes starFloat {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-40px); }
+}
+
+/* ================= ASTEROIDS ================= */
+.asteroid-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.asteroid {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #888;
+    border-radius: 40% 60% 55% 45%;
+    opacity: 0.35;
+    box-shadow: 0 0 6px rgba(255,255,255,0.15);
+}
+
+/* Asteroid drift */
+@keyframes asteroidDrift {
+    from {
+        transform: translate(0, 0);
+    }
+    to {
+        transform: translate(-120px, 60px);
+    }
+}
+/* ================= VIEW TOGGLE ================= */
+.view-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.view-toggle button {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(20,24,60,0.6);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-toggle button.active {
+    background: rgba(188, 188, 207, 0.9);
+}
+
+/* ================= VIEW SECTIONS ================= */
+.view-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.view-section.active-view {
+    display: block;
+    opacity: 1;
+}
+/* ================= HEADING BANNERS ================= */
+
+/* Main title banner */
+.heading-banner {
+    max-width: 520px;
+    margin: 24px auto 16px;
+    padding: 14px 22px;
+
+    background: linear-gradient(
+        135deg,
+        rgba(30, 40, 120, 0.55),
+        rgba(10, 15, 40, 0.55)
+    );
+
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 10px 30px rgba(0,0,0,0.4);
+
+    text-align: center;
+}
+/* ================= LOGIN PAGE ================= */
+
+.login-universe {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Login card */
+.login-card {
+    position: relative;
+    z-index: 5;
+
+    padding: 36px 44px;
+    border-radius: 22px;
+
+    background: rgba(15, 18, 40, 0.6);
+    backdrop-filter: blur(14px);
+
+    box-shadow:
+        0 0 0 1px rgba(255,255,255,0.08),
+        0 20px 60px rgba(0,0,0,0.45);
+
+    text-align: center;
+}
+
+.login-card h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px;
+    font-weight: 500;
+    margin-bottom: 28px;
+    color: #f1f3ff;
+}
+
+/* Spotify login button */
+.login-btn {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 30px;
+
+    background: #314791;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(119, 138, 126, 0.45);
+}
+
