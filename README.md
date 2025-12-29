@@ -19,5 +19,5 @@ MoodSwinger is a Spotify-powered web application that visualizes a user's listen
 
 1. Clone the repository
 ```bash
-git clone https://github.com/harshaspec/MoodSwinger.git
+git clone https://github.com/harsha-spec/MoodSwinger.git
 cd MoodSwinger
