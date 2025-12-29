@@ -9,7 +9,11 @@ app.secret_key = os.getenv("FLASK_SECRET_KEY", "dev_secret_key")
 # ================= SPOTIFY CONFIG =================
 CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
-REDIRECT_URI = "http://127.0.0.1:5000/callback"
+REDIRECT_URI = os.getenv(
+    "SPOTIFY_REDIRECT_URI",
+    "http://127.0.0.1:5000/callback"
+)
+
 
 AUTH_URL = "https://accounts.spotify.com/authorize"
 TOKEN_URL = "https://accounts.spotify.com/api/token"
